@@ -14,7 +14,7 @@
 
 apt_install () {
   echo "####### APT #######"
-  apt update && apt install python-smbus i2c-tools -y
+  apt update && apt install python3-smbus i2c-tools -y
   echo "###################"
 }
 

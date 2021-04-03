@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 # Simple clock program. Writes the exact time.
 # Demo program for the I2C 16x2 Display from Ryanteck.uk
