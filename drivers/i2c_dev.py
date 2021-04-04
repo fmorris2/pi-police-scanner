@@ -140,6 +140,33 @@ class Lcd:
         for char in string:
             self.lcd_write(ord(char), Rs)
 
+    def lcd_autofit_string(self, string):
+        if(len(string) > 16):
+            words = string.split()
+            if(len(words) == 1):
+                self.lcd_display_string(string[:16],1)
+                self.lcd_display_string(string[16:33],2)
+            else:
+                currentLine = 1
+                currentStr = ''
+                for word in words:
+                    if currentLine == 3:
+                        break
+                    if len(currentStr) + len(word) > 16:
+                        if len(currentStr) == 0:
+                            self.lcd_display_string(string[:16],currentLine)
+                            currentStr = string[16:] + ' '
+                        else:
+                            self.lcd_display_string(currentStr,currentLine)
+                            currentStr = word + ' '
+                        currentLine += 1
+                    else:
+                        currentStr += word + ' '
+                if currentLine < 3:
+                    self.lcd_display_string(currentStr[:16],currentLine)
+        else:
+            self.lcd_display_string(string, 1)
+
     # clear lcd and set to home
     def lcd_clear(self):
         self.lcd_write(LCD_CLEARDISPLAY)
