@@ -4,6 +4,7 @@ from time import sleep
 from re import findall
 from subprocess import check_output
 from os.path import exists
+import math
 
 # old and new versions of the RPi have swapped the two i2c buses
 # they can be identified by RPI_REVISION (or check sysfs)
@@ -137,6 +138,12 @@ class Lcd:
             self.lcd_write(0x94)
         if line == 4:
             self.lcd_write(0xD4)
+
+        if len(string) < 16:
+            padding = ''
+            for i in range(math.ceil((16 - len(string)) / 2)):
+                padding += ' '
+            string = padding + string
         for char in string:
             self.lcd_write(ord(char), Rs)
 
